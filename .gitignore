@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+*.skill
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Antigravity brain folder (conversation-specific artifacts)
+# This contains session-specific task tracking, not shareable content
+.gemini/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Logs
+*.log
+logs/
+
+# Hytale game data (user-specific)
+# Uncomment if you have local Hytale files in this folder
+# UserData/
+# Saves/
