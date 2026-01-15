@@ -1,52 +1,37 @@
-# Hytale Modding Skills
+# Hytale Agent Skills
 
 > **AI-powered skills for comprehensive Hytale modding** - Works with Claude AI in [Antigravity](https://antigravity.google) or any AI agent that supports the skills format.
 
 ## What is this?
 
-This repository contains a collection of **AI agent skills** that transform Claude (or compatible AI assistants) into expert Hytale modders. Skills are modular instruction sets that give AI agents specialized knowledge about specific domains.
+A collection of **18 AI agent skills** that transform Claude (or compatible AI assistants) into expert Hytale modders. Just give this repo to your AI and start asking about modding - no tutorials needed.
 
-**When you or your AI assistant opens this workspace**, the skills are automatically loaded, giving instant expertise in:
-- Creating content packs (blocks, items, mobs)
-- 3D modeling with Hytale's art style
-- AI-assisted modeling via Blockbench MCP
-- And more as the collection grows!
+**Skills cover:** Content creation, 3D modeling, Java plugins, animations, audio, VFX, UI/HUD, world generation, server hosting, and team collaboration.
 
 ## Quick Start
 
-### For Antigravity Users
+### Just Give the Link to Claude
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/hytale-modding-skills.git
-   ```
+Share this with your AI assistant:
+```
+https://github.com/Z3nLotus/hytale-agent-skills
+```
 
-2. Open the folder in [Antigravity](https://antigravity.google)
+Then ask things like:
+- *"Create a new Hytale Pack called MyFirstMod"*
+- *"Help me make a custom block with two states"*
+- *"What are Hytale's art style guidelines?"*
+- *"Set up a private server for my friends"*
 
-3. Start chatting! Claude will automatically have access to all skills.
+The AI will clone the repo, read the skills, and guide you through everything.
 
-**Example prompts to try:**
-- "Create a new Hytale Pack called MyFirstMod"
-- "Help me make a custom block with two states (on/off)"
-- "What are Hytale's art style guidelines for models?"
+### Manual Setup (Optional)
 
-### For Other AI Agents
+If your AI can't clone repos automatically, open the folder in [Antigravity](https://antigravity.google) or point your agent to `.agent/skills/`.
 
-Skills are located in `.agent/skills/`. Each skill folder contains:
-- `SKILL.md` - The main instruction file (required)
-- `references/` - Detailed documentation loaded on-demand
-- `scripts/` - Helper scripts for automation
-- `assets/` - Templates and boilerplate files
+### AI-Assisted 3D Modeling (Optional)
 
-Point your AI agent to read the `SKILL.md` files for the domains you need.
-
-### Enabling AI-Assisted 3D Modeling (Optional)
-
-Want Claude to directly control Blockbench? See the `blockbench-mcp` skill for setup:
-
-**For Antigravity users**: Create `.mcp.json` in workspace root or use Agent Session → MCP Servers → Manage
-
-**For Claude Desktop users**: Add config to `%APPDATA%\Claude\claude_desktop_config.json`
+Want Claude to directly control Blockbench? See the `blockbench-mcp` skill for MCP setup.
 
 ## Available Skills
 
