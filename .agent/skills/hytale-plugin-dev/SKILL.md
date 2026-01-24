@@ -236,12 +236,30 @@ if (entity.hasComponent(FlyingComponent.class)) {
 
 ## Gradle Build Configuration
 
+### Setting Up Dependencies (Critical!)
+
+The official maven repo has been unstable. Use this **local-first** strategy:
+
+**Step 1: Extract API from HytaleServer.jar**
+```bash
+# Windows - find the server JAR:
+# %appdata%\Hytale\Hytale\install\release\package\game\latest\Server\HytaleServer.jar
+
+# Install to local Maven cache:
+mvn install:install-file \
+    -Dfile="PATH_TO_JAR/HytaleServer.jar" \
+    -DgroupId=com.hypixel.hytale \
+    -DartifactId=Server \
+    -Dversion=1.0-SNAPSHOT \
+    -Dpackaging=jar
+```
+
 ### build.gradle.kts
 
 ```kotlin
 plugins {
-    java
-    id("com.hytale.plugin") version "1.0.0"
+    `java-library`
+    id("hytale-mod") version "0.+" // Community tooling
 }
 
 group = "com.yourname"
@@ -249,26 +267,33 @@ version = "1.0.0"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(25))
+        languageVersion.set(JavaLanguageVersion.of(25)) // Required!
     }
 }
 
 repositories {
+    mavenLocal() // Priority 1: Local cache (from extracted JAR)
     mavenCentral()
-    maven("https://maven.hytale.com/releases")
+    
+    // Priority 2: Community mirror (more stable than official)
+    maven("https://maven.hytale-modding.info/releases") {
+        content {
+            includeGroup("com.hypixel.hytale")
+        }
+    }
+    
+    // JitPack for GitHub-hosted community libs
+    maven("https://jitpack.io")
 }
 
 dependencies {
-    compileOnly("com.hytale:server-api:1.0.0")
-}
-
-hytalePlugin {
-    pluginId = "myplugin"
-    pluginName = "My Plugin"
-    author = "YourName"
-    version = project.version.toString()
+    // MUST be compileOnly - server provides at runtime
+    compileOnly("com.hypixel.hytale:Server:1.0-SNAPSHOT")
 }
 ```
+
+**Important:** Use `compileOnly` for the server dependency. Bundling it causes ClassCastExceptions.
+
 
 ### Building
 
@@ -281,7 +306,9 @@ gradle build
 
 ### Installing
 
-Copy JAR to: `%APPDATA%/Hytale/UserData/Mods/`
+**For client mods:** `%APPDATA%/Hytale/UserData/Mods/`
+
+**For server plugins:** Copy to `server/mods/` folder (NOT `plugins/`)
 
 ---
 
@@ -323,8 +350,11 @@ MyPlugin/
 
 ## Resources
 
-- **Plugin Template**: [Darkhax-Hytale/HytalePluginTemplate](https://github.com/Darkhax-Hytale/HytalePluginTemplate)
-- **Hytale Modding Bible**: Community-curated API reference (Reddit)
-- **Video Tutorials**: Kaupenjoe on YouTube
+- **Community Mirror Maven**: `https://maven.hytale-modding.info/releases`
+- **Example Plugin (Kaupenjoe)**: [GitHub](https://github.com/Kaupenjoe/Hytale-Example-Plugin)
+- **SimpleClaims (Buuz135)**: [GitHub](https://github.com/Buuz135/SimpleClaims)
+- **Hytale Modding Bible**: Community API reference on Reddit
+- **Kytale Framework**: [CurseForge](https://www.curseforge.com/hytale/mods/kytale)
+- **Imperat Command Framework**: Multi-platform command lib
 - **Java 25 Reference**: See `java-25-hytale` skill
 - **Gradle Reference**: See `gradle-hytale` skill
